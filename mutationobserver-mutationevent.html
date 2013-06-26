@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta charset="utf-8" />
+	<title>What's wrong with MutationEvents?</title>
+	<link rel="stylesheet" href="mutationobserver.css">
+</head>
+<body>
+<header>
+	<h1>What's wrong with MutationEvents?</h1>
+	<p>There are <b id="numgraphs"> </b> paragraphs below. <b id="numevents">0</b> MutationEvents have been fired. <button>Delete paragraphs</button></p>
+	<nav><a href="">Return to article</a></nav>
+</header>
+
+<article>
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+	<p>Suspendisse vitae urna volutpat, vulputate nibh eu, faucibus massa.</p>
+	<p>Suspendisse volutpat et tellus sed semper.</p>
+	<p>Pellentesque dolor nisi, venenatis quis suscipit ut, euismod quis lectus.</p>
+	<p>Phasellus vel aliquet dolor.</p>
+	<p>Donec faucibus, mi id venenatis feugiat, nisi ante ullamcorper leo, ut porta eros ligula quis libero.</p>
+	<p>Mauris non malesuada elit.</p>
+	<p>Ut nibh odio, feugiat vel vulputate at, blandit in ante.</p>
+	<p>Curabitur nisl elit, suscipit sit amet ipsum sit amet, mattis gravida justo.</p>
+	<p>Ut et mattis erat.</p>
+	<p>Quisque consequat nisi in leo hendrerit ultrices.</p>
+	<p>Aenean porta libero ut neque volutpat eleifend.</p>
+	<p>Donec quam nibh, accumsan ac purus non, elementum interdum lacus.</p>
+	<p>Morbi aliquet, eros sit amet laoreet condimentum, diam odio porttitor tellus, a pellentesque mi risus in mi.</p>
+	<p>Sed vitae justo a ligula consequat bibendum rhoncus in quam.</p>
+	<p>Praesent lacus metus, vulputate iaculis ipsum quis, faucibus gravida ipsum.</p>
+	<p>Fusce viverra magna ac erat sollicitudin, at accumsan sem auctor.</p>
+	<p>Integer eleifend velit eget purus posuere, sed commodo nulla egestas.</p>
+	<p>Suspendisse potenti.</p>
+	<p>Nullam et elit nisl.</p>
+	<p>Donec vestibulum nec est eu lacinia.</p>
+	<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin at eros sed metus malesuada viverra.</p>
+	<p>Suspendisse porta sed dolor ac porttitor.</p>
+	<p>Quisque sit amet dolor in felis sollicitudin consequat.</p>
+	<p>In vel quam auctor, imperdiet risus nec, feugiat justo.</p>
+	<p>Aenean tincidunt orci et leo faucibus, sit amet tempor risus dignissim.</p>
+	<p>Vestibulum vitae nisi nulla.</p>
+	<p>Pellentesque nunc magna, dictum eu elit vitae, mollis tincidunt massa.</p>
+	<p>Proin eu mauris posuere, rutrum ante vitae, blandit ante.</p>
+	<p>In ac tincidunt dolor.</p>
+	<p>Duis vel massa vel lacus placerat molestie dapibus vel justo.</p>
+	<p>Suspendisse est elit, tincidunt vel imperdiet eget, volutpat id augue.</p>
+	<p>Aliquam egestas, dolor ac varius congue, nisi ipsum rutrum diam, vestibulum sollicitudin magna augue sit amet magna.</p>
+	<p>Quisque non tempor purus.</p>
+	<p>Donec a mi facilisis, adipiscing turpis egestas, aliquam erat.</p>
+	<p>Aenean eu porttitor lacus, non pretium libero.</p>
+	<p>Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+	<p>Quisque scelerisque odio sed risus lobortis condimentum.</p>
+	<p>Vivamus consequat placerat lorem, ac vulputate lacus pretium eget.</p>
+	<p>Donec ornare condimentum faucibus.</p>
+	<p>Curabitur dolor neque, scelerisque vitae fringilla eget, pellentesque nec libero.</p>
+	<p>Sed fermentum purus et justo feugiat, vehicula lobortis mi placerat.</p>
+	<p>Morbi bibendum posuere euismod.</p>
+	<p>Phasellus vestibulum lorem nec velit tempus, non feugiat lacus aliquam.</p>
+	<p>Nullam pretium erat at est venenatis semper id eget nulla.</p>
+	<p>Phasellus et nisl ultricies, sollicitudin eros vel, fermentum turpis.</p>
+	<p>Donec pellentesque, tellus vitae eleifend feugiat, ipsum nunc pulvinar est, quis fringilla augue lacus venenatis urna.</p>
+	<p>Praesent sed nunc eu tortor porttitor vestibulum.</p>
+	<p>Praesent mattis porta nisi, nec porttitor nibh aliquet nec.</p>
+	<p>Fusce ante nulla, tristique quis posuere non, ultricies et eros.</p>
+	<p>Sed rutrum dolor pretium lobortis facilisis.</p>
+	<p>Suspendisse potenti.</p>
+	<p>Quisque sed ultricies nunc, non lacinia metus.</p>
+	<p>Duis varius purus neque, sit amet fermentum mi blandit id.</p>
+	<p>Maecenas blandit sem ac ante dictum eleifend placerat eget dolor.</p>
+	<p>In vitae scelerisque enim.</p>
+	<p>Nullam vitae est lectus.</p>
+	<p>Etiam ac neque pharetra, pulvinar tellus a, dignissim nunc.</p>
+	<p>Suspendisse vehicula, tortor eu vestibulum scelerisque, sapien augue semper leo, vitae gravida velit enim at lorem.</p>
+	<p>Donec tincidunt adipiscing ipsum quis dapibus.</p>
+	<p>Ut pharetra nisl eros.</p>
+	<p>Fusce malesuada lobortis eros in gravida.</p>
+	<p>Nam ut nisi vitae eros commodo imperdiet vel vitae orci.</p>
+	<p>Pellentesque ultrices, erat eget bibendum eleifend, tortor erat ullamcorper sapien, quis porttitor turpis velit sed tellus.</p>
+	<p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+	<p>Vestibulum venenatis, enim eget consequat blandit, est nibh pharetra magna, ac posuere dolor turpis et magna.</p>
+	<p>Pellentesque sodales dui sed est convallis, id egestas felis cursus.</p>
+	<p>Cras nec libero facilisis, lobortis nulla in, lobortis neque.</p>
+	<p>Vestibulum fringilla nibh gravida dui aliquet, eget feugiat arcu eleifend.</p>
+	<p>Aliquam accumsan ante eu enim interdum malesuada.</p>
+	<p>Ut eu aliquet lorem.</p>
+	<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+	<p>Nullam eget nunc sed enim congue pharetra vitae malesuada ipsum.</p>
+	<p>Suspendisse potenti.</p>
+	<p>Sed quis neque sit amet metus pulvinar molestie quis condimentum magna.</p>
+	<p>Morbi id rutrum lorem.</p>
+	<p>Integer interdum, magna non sodales interdum, augue purus suscipit elit, in mollis sapien ante vel ligula.</p>
+	<p>Donec vitae mi ut ipsum semper auctor.</p>
+	<p>Duis vitae turpis non metus rhoncus congue.</p>
+	<p>Proin vel tincidunt nulla.</p>
+	<p>Curabitur sit amet molestie justo.</p>
+	<p>Mauris adipiscing nisi est, quis sodales purus suscipit vitae.</p>
+	<p>Nam a leo felis.</p>
+	<p>Sed lectus tortor, commodo quis nunc nec, dapibus rhoncus lacus.</p>
+	<p>Maecenas in lectus ornare, condimentum sapien quis, elementum nisi.</p>
+	<p>Nullam iaculis pretium luctus.</p>
+	<p>Sed pretium porta aliquam.</p>
+	<p>Sed consequat dolor quis fermentum vulputate.</p>
+	<p>Praesent luctus augue risus, vitae porta felis condimentum ut.</p>
+	<p>Phasellus at neque condimentum, adipiscing nisl nec, mollis lectus.</p>
+	<p>Morbi a augue condimentum, porta neque eu, semper erat.</p>
+	<p>Praesent id ante eu sem convallis fringilla at eget metus.</p>
+	<p>Nulla posuere mattis dui, quis ultricies sem porttitor vel.</p>
+	<p>Duis a massa at enim cursus dapibus.</p>
+	<p>Nullam tellus nulla, faucibus sed pretium et, blandit eu arcu.</p>
+	<p>Aenean viverra tortor sed dui tempus, vitae elementum lacus volutpat.</p>
+	<p>Aliquam imperdiet sem sed lacinia dapibus.</p>
+	<p>Vivamus nisi lacus, tincidunt iaculis feugiat luctus, mattis eu lacus.</p>
+	<p>Etiam varius ac augue sit amet dictum.</p>
+	<p>Suspendisse euismod turpis tortor.</p>
+	<p>Mauris viverra tristique lobortis.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+	<p>Suspendisse vitae urna volutpat, vulputate nibh eu, faucibus massa.</p>
+	<p>Suspendisse volutpat et tellus sed semper.</p>
+	<p>Pellentesque dolor nisi, venenatis quis suscipit ut, euismod quis lectus.</p>
+	<p>Phasellus vel aliquet dolor.</p>
+	<p>Donec faucibus, mi id venenatis feugiat, nisi ante ullamcorper leo, ut porta eros ligula quis libero.</p>
+	<p>Mauris non malesuada elit.</p>
+	<p>Ut nibh odio, feugiat vel vulputate at, blandit in ante.</p>
+	<p>Curabitur nisl elit, suscipit sit amet ipsum sit amet, mattis gravida justo.</p>
+	<p>Ut et mattis erat.</p>
+	<p>Quisque consequat nisi in leo hendrerit ultrices.</p>
+	<p>Aenean porta libero ut neque volutpat eleifend.</p>
+	<p>Donec quam nibh, accumsan ac purus non, elementum interdum lacus.</p>
+	<p>Morbi aliquet, eros sit amet laoreet condimentum, diam odio porttitor tellus, a pellentesque mi risus in mi.</p>
+	<p>Sed vitae justo a ligula consequat bibendum rhoncus in quam.</p>
+	<p>Praesent lacus metus, vulputate iaculis ipsum quis, faucibus gravida ipsum.</p>
+	<p>Fusce viverra magna ac erat sollicitudin, at accumsan sem auctor.</p>
+	<p>Integer eleifend velit eget purus posuere, sed commodo nulla egestas.</p>
+	<p>Suspendisse potenti.</p>
+	<p>Nullam et elit nisl.</p>
+	<p>Donec vestibulum nec est eu lacinia.</p>
+	<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin at eros sed metus malesuada viverra.</p>
+	<p>Suspendisse porta sed dolor ac porttitor.</p>
+	<p>Quisque sit amet dolor in felis sollicitudin consequat.</p>
+	<p>In vel quam auctor, imperdiet risus nec, feugiat justo.</p>
+	<p>Aenean tincidunt orci et leo faucibus, sit amet tempor risus dignissim.</p>
+	<p>Vestibulum vitae nisi nulla.</p>
+	<p>Pellentesque nunc magna, dictum eu elit vitae, mollis tincidunt massa.</p>
+	<p>Proin eu mauris posuere, rutrum ante vitae, blandit ante.</p>
+	<p>In ac tincidunt dolor.</p>
+	<p>Duis vel massa vel lacus placerat molestie dapibus vel justo.</p>
+	<p>Suspendisse est elit, tincidunt vel imperdiet eget, volutpat id augue.</p>
+	<p>Aliquam egestas, dolor ac varius congue, nisi ipsum rutrum diam, vestibulum sollicitudin magna augue sit amet magna.</p>
+	<p>Quisque non tempor purus.</p>
+	<p>Donec a mi facilisis, adipiscing turpis egestas, aliquam erat.</p>
+	<p>Aenean eu porttitor lacus, non pretium libero.</p>
+	<p>Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+	<p>Quisque scelerisque odio sed risus lobortis condimentum.</p>
+	<p>Vivamus consequat placerat lorem, ac vulputate lacus pretium eget.</p>
+	<p>Donec ornare condimentum faucibus.</p>
+	<p>Curabitur dolor neque, scelerisque vitae fringilla eget, pellentesque nec libero.</p>
+	<p>Sed fermentum purus et justo feugiat, vehicula lobortis mi placerat.</p>
+	<p>Morbi bibendum posuere euismod.</p>
+	<p>Phasellus vestibulum lorem nec velit tempus, non feugiat lacus aliquam.</p>
+	<p>Nullam pretium erat at est venenatis semper id eget nulla.</p>
+	<p>Phasellus et nisl ultricies, sollicitudin eros vel, fermentum turpis.</p>
+	<p>Donec pellentesque, tellus vitae eleifend feugiat, ipsum nunc pulvinar est, quis fringilla augue lacus venenatis urna.</p>
+	<p>Praesent sed nunc eu tortor porttitor vestibulum.</p>
+	<p>Praesent mattis porta nisi, nec porttitor nibh aliquet nec.</p>
+	<p>Fusce ante nulla, tristique quis posuere non, ultricies et eros.</p>
+	<p>Sed rutrum dolor pretium lobortis facilisis.</p>
+	<p>Suspendisse potenti.</p>
+	<p>Quisque sed ultricies nunc, non lacinia metus.</p>
+	<p>Duis varius purus neque, sit amet fermentum mi blandit id.</p>
+	<p>Maecenas blandit sem ac ante dictum eleifend placerat eget dolor.</p>
+	<p>In vitae scelerisque enim.</p>
+	<p>Nullam vitae est lectus.</p>
+	<p>Etiam ac neque pharetra, pulvinar tellus a, dignissim nunc.</p>
+	<p>Suspendisse vehicula, tortor eu vestibulum scelerisque, sapien augue semper leo, vitae gravida velit enim at lorem.</p>
+	<p>Donec tincidunt adipiscing ipsum quis dapibus.</p>
+	<p>Ut pharetra nisl eros.</p>
+	<p>Fusce malesuada lobortis eros in gravida.</p>
+	<p>Nam ut nisi vitae eros commodo imperdiet vel vitae orci.</p>
+	<p>Pellentesque ultrices, erat eget bibendum eleifend, tortor erat ullamcorper sapien, quis porttitor turpis velit sed tellus.</p>
+	<p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+	<p>Vestibulum venenatis, enim eget consequat blandit, est nibh pharetra magna, ac posuere dolor turpis et magna.</p>
+	<p>Pellentesque sodales dui sed est convallis, id egestas felis cursus.</p>
+	<p>Cras nec libero facilisis, lobortis nulla in, lobortis neque.</p>
+	<p>Vestibulum fringilla nibh gravida dui aliquet, eget feugiat arcu eleifend.</p>
+	<p>Aliquam accumsan ante eu enim interdum malesuada.</p>
+	<p>Ut eu aliquet lorem.</p>
+	<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+	<p>Nullam eget nunc sed enim congue pharetra vitae malesuada ipsum.</p>
+	<p>Suspendisse potenti.</p>
+	<p>Sed quis neque sit amet metus pulvinar molestie quis condimentum magna.</p>
+	<p>Morbi id rutrum lorem.</p>
+	<p>Integer interdum, magna non sodales interdum, augue purus suscipit elit, in mollis sapien ante vel ligula.</p>
+	<p>Donec vitae mi ut ipsum semper auctor.</p>
+	<p>Duis vitae turpis non metus rhoncus congue.</p>
+	<p>Proin vel tincidunt nulla.</p>
+	<p>Curabitur sit amet molestie justo.</p>
+	<p>Mauris adipiscing nisi est, quis sodales purus suscipit vitae.</p>
+	<p>Nam a leo felis.</p>
+	<p>Sed lectus tortor, commodo quis nunc nec, dapibus rhoncus lacus.</p>
+	<p>Maecenas in lectus ornare, condimentum sapien quis, elementum nisi.</p>
+	<p>Nullam iaculis pretium luctus.</p>
+	<p>Sed pretium porta aliquam.</p>
+	<p>Sed consequat dolor quis fermentum vulputate.</p>
+	<p>Praesent luctus augue risus, vitae porta felis condimentum ut.</p>
+	<p>Phasellus at neque condimentum, adipiscing nisl nec, mollis lectus.</p>
+	<p>Morbi a augue condimentum, porta neque eu, semper erat.</p>
+	<p>Praesent id ante eu sem convallis fringilla at eget metus.</p>
+	<p>Nulla posuere mattis dui, quis ultricies sem porttitor vel.</p>
+	<p>Duis a massa at enim cursus dapibus.</p>
+	<p>Nullam tellus nulla, faucibus sed pretium et, blandit eu arcu.</p>
+	<p>Aenean viverra tortor sed dui tempus, vitae elementum lacus volutpat.</p>
+	<p>Aliquam imperdiet sem sed lacinia dapibus.</p>
+	<p>Vivamus nisi lacus, tincidunt iaculis feugiat luctus, mattis eu lacus.</p>
+	<p>Etiam varius ac augue sit amet dictum.</p>
+	<p>Suspendisse euismod turpis tortor.</p>
+	<p>Mauris viverra tristique lobortis.</p>
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+	<p>Suspendisse vitae urna volutpat, vulputate nibh eu, faucibus massa.</p>
+	<p>Suspendisse volutpat et tellus sed semper.</p>
+	<p>Pellentesque dolor nisi, venenatis quis suscipit ut, euismod quis lectus.</p>
+	<p>Phasellus vel aliquet dolor.</p>
+	<p>Donec faucibus, mi id venenatis feugiat, nisi ante ullamcorper leo, ut porta eros ligula quis libero.</p>
+	<p>Mauris non malesuada elit.</p>
+	<p>Ut nibh odio, feugiat vel vulputate at, blandit in ante.</p>
+	<p>Curabitur nisl elit, suscipit sit amet ipsum sit amet, mattis gravida justo.</p>
+	<p>Ut et mattis erat.</p>
+	<p>Quisque consequat nisi in leo hendrerit ultrices.</p>
+	<p>Aenean porta libero ut neque volutpat eleifend.</p>
+	<p>Donec quam nibh, accumsan ac purus non, elementum interdum lacus.</p>
+	<p>Morbi aliquet, eros sit amet laoreet condimentum, diam odio porttitor tellus, a pellentesque mi risus in mi.</p>
+	<p>Sed vitae justo a ligula consequat bibendum rhoncus in quam.</p>
+	<p>Praesent lacus metus, vulputate iaculis ipsum quis, faucibus gravida ipsum.</p>
+	<p>Fusce viverra magna ac erat sollicitudin, at accumsan sem auctor.</p>
+	<p>Integer eleifend velit eget purus posuere, sed commodo nulla egestas.</p>
+	<p>Suspendisse potenti.</p>
+	<p>Nullam et elit nisl.</p>
+	<p>Donec vestibulum nec est eu lacinia.</p>
+	<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin at eros sed metus malesuada viverra.</p>
+	<p>Suspendisse porta sed dolor ac porttitor.</p>
+	<p>Quisque sit amet dolor in felis sollicitudin consequat.</p>
+	<p>In vel quam auctor, imperdiet risus nec, feugiat justo.</p>
+	<p>Aenean tincidunt orci et leo faucibus, sit amet tempor risus dignissim.</p>
+	<p>Vestibulum vitae nisi nulla.</p>
+	<p>Pellentesque nunc magna, dictum eu elit vitae, mollis tincidunt massa.</p>
+	<p>Proin eu mauris posuere, rutrum ante vitae, blandit ante.</p>
+	<p>In ac tincidunt dolor.</p>
+	<p>Duis vel massa vel lacus placerat molestie dapibus vel justo.</p>
+	<p>Suspendisse est elit, tincidunt vel imperdiet eget, volutpat id augue.</p>
+	<p>Aliquam egestas, dolor ac varius congue, nisi ipsum rutrum diam, vestibulum sollicitudin magna augue sit amet magna.</p>
+	<p>Quisque non tempor purus.</p>
+	<p>Donec a mi facilisis, adipiscing turpis egestas, aliquam erat.</p>
+	<p>Aenean eu porttitor lacus, non pretium libero.</p>
+	<p>Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+	<p>Quisque scelerisque odio sed risus lobortis condimentum.</p>
+	<p>Vivamus consequat placerat lorem, ac vulputate lacus pretium eget.</p>
+	<p>Donec ornare condimentum faucibus.</p>
+	<p>Curabitur dolor neque, scelerisque vitae fringilla eget, pellentesque nec libero.</p>
+	<p>Sed fermentum purus et justo feugiat, vehicula lobortis mi placerat.</p>
+	<p>Morbi bibendum posuere euismod.</p>
+	<p>Phasellus vestibulum lorem nec velit tempus, non feugiat lacus aliquam.</p>
+	<p>Nullam pretium erat at est venenatis semper id eget nulla.</p>
+	<p>Phasellus et nisl ultricies, sollicitudin eros vel, fermentum turpis.</p>
+	<p>Donec pellentesque, tellus vitae eleifend feugiat, ipsum nunc pulvinar est, quis fringilla augue lacus venenatis urna.</p>
+	<p>Praesent sed nunc eu tortor porttitor vestibulum.</p>
+	<p>Praesent mattis porta nisi, nec porttitor nibh aliquet nec.</p>
+	<p>Fusce ante nulla, tristique quis posuere non, ultricies et eros.</p>
+	<p>Sed rutrum dolor pretium lobortis facilisis.</p>
+	<p>Suspendisse potenti.</p>
+	<p>Quisque sed ultricies nunc, non lacinia metus.</p>
+	<p>Duis varius purus neque, sit amet fermentum mi blandit id.</p>
+	<p>Maecenas blandit sem ac ante dictum eleifend placerat eget dolor.</p>
+	<p>In vitae scelerisque enim.</p>
+	<p>Nullam vitae est lectus.</p>
+	<p>Etiam ac neque pharetra, pulvinar tellus a, dignissim nunc.</p>
+	<p>Suspendisse vehicula, tortor eu vestibulum scelerisque, sapien augue semper leo, vitae gravida velit enim at lorem.</p>
+	<p>Donec tincidunt adipiscing ipsum quis dapibus.</p>
+	<p>Ut pharetra nisl eros.</p>
+	<p>Fusce malesuada lobortis eros in gravida.</p>
+	<p>Nam ut nisi vitae eros commodo imperdiet vel vitae orci.</p>
+	<p>Pellentesque ultrices, erat eget bibendum eleifend, tortor erat ullamcorper sapien, quis porttitor turpis velit sed tellus.</p>
+	<p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+	<p>Vestibulum venenatis, enim eget consequat blandit, est nibh pharetra magna, ac posuere dolor turpis et magna.</p>
+	<p>Pellentesque sodales dui sed est convallis, id egestas felis cursus.</p>
+	<p>Cras nec libero facilisis, lobortis nulla in, lobortis neque.</p>
+	<p>Vestibulum fringilla nibh gravida dui aliquet, eget feugiat arcu eleifend.</p>
+	<p>Aliquam accumsan ante eu enim interdum malesuada.</p>
+	<p>Ut eu aliquet lorem.</p>
+	<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+	<p>Nullam eget nunc sed enim congue pharetra vitae malesuada ipsum.</p>
+	<p>Suspendisse potenti.</p>
+	<p>Sed quis neque sit amet metus pulvinar molestie quis condimentum magna.</p>
+	<p>Morbi id rutrum lorem.</p>
+	<p>Integer interdum, magna non sodales interdum, augue purus suscipit elit, in mollis sapien ante vel ligula.</p>
+	<p>Donec vitae mi ut ipsum semper auctor.</p>
+	<p>Duis vitae turpis non metus rhoncus congue.</p>
+	<p>Proin vel tincidunt nulla.</p>
+	<p>Curabitur sit amet molestie justo.</p>
+	<p>Mauris adipiscing nisi est, quis sodales purus suscipit vitae.</p>
+	<p>Nam a leo felis.</p>
+	<p>Sed lectus tortor, commodo quis nunc nec, dapibus rhoncus lacus.</p>
+	<p>Maecenas in lectus ornare, condimentum sapien quis, elementum nisi.</p>
+	<p>Nullam iaculis pretium luctus.</p>
+	<p>Sed pretium porta aliquam.</p>
+	<p>Sed consequat dolor quis fermentum vulputate.</p>
+	<p>Praesent luctus augue risus, vitae porta felis condimentum ut.</p>
+	<p>Phasellus at neque condimentum, adipiscing nisl nec, mollis lectus.</p>
+	<p>Morbi a augue condimentum, porta neque eu, semper erat.</p>
+	<p>Praesent id ante eu sem convallis fringilla at eget metus.</p>
+	<p>Nulla posuere mattis dui, quis ultricies sem porttitor vel.</p>
+	<p>Duis a massa at enim cursus dapibus.</p>
+	<p>Nullam tellus nulla, faucibus sed pretium et, blandit eu arcu.</p>
+	<p>Aenean viverra tortor sed dui tempus, vitae elementum lacus volutpat.</p>
+	<p>Aliquam imperdiet sem sed lacinia dapibus.</p>
+	<p>Vivamus nisi lacus, tincidunt iaculis feugiat luctus, mattis eu lacus.</p>
+	<p>Etiam varius ac augue sit amet dictum.</p>
+	<p>Suspendisse euismod turpis tortor.</p>
+	<p>Mauris viverra tristique lobortis.</p>
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+	<p>Suspendisse vitae urna volutpat, vulputate nibh eu, faucibus massa.</p>
+	<p>Suspendisse volutpat et tellus sed semper.</p>
+	<p>Pellentesque dolor nisi, venenatis quis suscipit ut, euismod quis lectus.</p>
+	<p>Phasellus vel aliquet dolor.</p>
+	<p>Donec faucibus, mi id venenatis feugiat, nisi ante ullamcorper leo, ut porta eros ligula quis libero.</p>
+	<p>Mauris non malesuada elit.</p>
+	<p>Ut nibh odio, feugiat vel vulputate at, blandit in ante.</p>
+	<p>Curabitur nisl elit, suscipit sit amet ipsum sit amet, mattis gravida justo.</p>
+	<p>Ut et mattis erat.</p>
+	<p>Quisque consequat nisi in leo hendrerit ultrices.</p>
+	<p>Aenean porta libero ut neque volutpat eleifend.</p>
+	<p>Donec quam nibh, accumsan ac purus non, elementum interdum lacus.</p>
+	<p>Morbi aliquet, eros sit amet laoreet condimentum, diam odio porttitor tellus, a pellentesque mi risus in mi.</p>
+	<p>Sed vitae justo a ligula consequat bibendum rhoncus in quam.</p>
+	<p>Praesent lacus metus, vulputate iaculis ipsum quis, faucibus gravida ipsum.</p>
+	<p>Fusce viverra magna ac erat sollicitudin, at accumsan sem auctor.</p>
+	<p>Integer eleifend velit eget purus posuere, sed commodo nulla egestas.</p>
+	<p>Suspendisse potenti.</p>
+	<p>Nullam et elit nisl.</p>
+	<p>Donec vestibulum nec est eu lacinia.</p>
+	<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin at eros sed metus malesuada viverra.</p>
+	<p>Suspendisse porta sed dolor ac porttitor.</p>
+	<p>Quisque sit amet dolor in felis sollicitudin consequat.</p>
+	<p>In vel quam auctor, imperdiet risus nec, feugiat justo.</p>
+	<p>Aenean tincidunt orci et leo faucibus, sit amet tempor risus dignissim.</p>
+	<p>Vestibulum vitae nisi nulla.</p>
+	<p>Pellentesque nunc magna, dictum eu elit vitae, mollis tincidunt massa.</p>
+	<p>Proin eu mauris posuere, rutrum ante vitae, blandit ante.</p>
+	<p>In ac tincidunt dolor.</p>
+	<p>Duis vel massa vel lacus placerat molestie dapibus vel justo.</p>
+	<p>Suspendisse est elit, tincidunt vel imperdiet eget, volutpat id augue.</p>
+	<p>Aliquam egestas, dolor ac varius congue, nisi ipsum rutrum diam, vestibulum sollicitudin magna augue sit amet magna.</p>
+	<p>Quisque non tempor purus.</p>
+	<p>Donec a mi facilisis, adipiscing turpis egestas, aliquam erat.</p>
+	<p>Aenean eu porttitor lacus, non pretium libero.</p>
+	<p>Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+	<p>Quisque scelerisque odio sed risus lobortis condimentum.</p>
+	<p>Vivamus consequat placerat lorem, ac vulputate lacus pretium eget.</p>
+	<p>Donec ornare condimentum faucibus.</p>
+	<p>Curabitur dolor neque, scelerisque vitae fringilla eget, pellentesque nec libero.</p>
+	<p>Sed fermentum purus et justo feugiat, vehicula lobortis mi placerat.</p>
+	<p>Morbi bibendum posuere euismod.</p>
+	<p>Phasellus vestibulum lorem nec velit tempus, non feugiat lacus aliquam.</p>
+	<p>Nullam pretium erat at est venenatis semper id eget nulla.</p>
+	<p>Phasellus et nisl ultricies, sollicitudin eros vel, fermentum turpis.</p>
+	<p>Donec pellentesque, tellus vitae eleifend feugiat, ipsum nunc pulvinar est, quis fringilla augue lacus venenatis urna.</p>
+	<p>Praesent sed nunc eu tortor porttitor vestibulum.</p>
+	<p>Praesent mattis porta nisi, nec porttitor nibh aliquet nec.</p>
+	<p>Fusce ante nulla, tristique quis posuere non, ultricies et eros.</p>
+	<p>Sed rutrum dolor pretium lobortis facilisis.</p>
+	<p>Suspendisse potenti.</p>
+	<p>Quisque sed ultricies nunc, non lacinia metus.</p>
+	<p>Duis varius purus neque, sit amet fermentum mi blandit id.</p>
+	<p>Maecenas blandit sem ac ante dictum eleifend placerat eget dolor.</p>
+	<p>In vitae scelerisque enim.</p>
+	<p>Nullam vitae est lectus.</p>
+	<p>Etiam ac neque pharetra, pulvinar tellus a, dignissim nunc.</p>
+	<p>Suspendisse vehicula, tortor eu vestibulum scelerisque, sapien augue semper leo, vitae gravida velit enim at lorem.</p>
+	<p>Donec tincidunt adipiscing ipsum quis dapibus.</p>
+	<p>Ut pharetra nisl eros.</p>
+	<p>Fusce malesuada lobortis eros in gravida.</p>
+	<p>Nam ut nisi vitae eros commodo imperdiet vel vitae orci.</p>
+	<p>Pellentesque ultrices, erat eget bibendum eleifend, tortor erat ullamcorper sapien, quis porttitor turpis velit sed tellus.</p>
+	<p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+	<p>Vestibulum venenatis, enim eget consequat blandit, est nibh pharetra magna, ac posuere dolor turpis et magna.</p>
+	<p>Pellentesque sodales dui sed est convallis, id egestas felis cursus.</p>
+	<p>Cras nec libero facilisis, lobortis nulla in, lobortis neque.</p>
+	<p>Vestibulum fringilla nibh gravida dui aliquet, eget feugiat arcu eleifend.</p>
+	<p>Aliquam accumsan ante eu enim interdum malesuada.</p>
+	<p>Ut eu aliquet lorem.</p>
+	<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+	<p>Nullam eget nunc sed enim congue pharetra vitae malesuada ipsum.</p>
+	<p>Suspendisse potenti.</p>
+	<p>Sed quis neque sit amet metus pulvinar molestie quis condimentum magna.</p>
+	<p>Morbi id rutrum lorem.</p>
+	<p>Integer interdum, magna non sodales interdum, augue purus suscipit elit, in mollis sapien ante vel ligula.</p>
+	<p>Donec vitae mi ut ipsum semper auctor.</p>
+	<p>Duis vitae turpis non metus rhoncus congue.</p>
+	<p>Proin vel tincidunt nulla.</p>
+	<p>Curabitur sit amet molestie justo.</p>
+	<p>Mauris adipiscing nisi est, quis sodales purus suscipit vitae.</p>
+	<p>Nam a leo felis.</p>
+	<p>Sed lectus tortor, commodo quis nunc nec, dapibus rhoncus lacus.</p>
+	<p>Maecenas in lectus ornare, condimentum sapien quis, elementum nisi.</p>
+	<p>Nullam iaculis pretium luctus.</p>
+	<p>Sed pretium porta aliquam.</p>
+	<p>Sed consequat dolor quis fermentum vulputate.</p>
+	<p>Praesent luctus augue risus, vitae porta felis condimentum ut.</p>
+	<p>Phasellus at neque condimentum, adipiscing nisl nec, mollis lectus.</p>
+	<p>Morbi a augue condimentum, porta neque eu, semper erat.</p>
+	<p>Praesent id ante eu sem convallis fringilla at eget metus.</p>
+	<p>Nulla posuere mattis dui, quis ultricies sem porttitor vel.</p>
+	<p>Duis a massa at enim cursus dapibus.</p>
+	<p>Nullam tellus nulla, faucibus sed pretium et, blandit eu arcu.</p>
+	<p>Aenean viverra tortor sed dui tempus, vitae elementum lacus volutpat.</p>
+	<p>Aliquam imperdiet sem sed lacinia dapibus.</p>
+	<p>Vivamus nisi lacus, tincidunt iaculis feugiat luctus, mattis eu lacus.</p>
+	<p>Etiam varius ac augue sit amet dictum.</p>
+	<p>Suspendisse euismod turpis tortor.</p>
+	<p>Mauris viverra tristique lobortis.</p>
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+	<p>Suspendisse vitae urna volutpat, vulputate nibh eu, faucibus massa.</p>
+	<p>Suspendisse volutpat et tellus sed semper.</p>
+	<p>Pellentesque dolor nisi, venenatis quis suscipit ut, euismod quis lectus.</p>
+	<p>Phasellus vel aliquet dolor.</p>
+	<p>Donec faucibus, mi id venenatis feugiat, nisi ante ullamcorper leo, ut porta eros ligula quis libero.</p>
+	<p>Mauris non malesuada elit.</p>
+	<p>Ut nibh odio, feugiat vel vulputate at, blandit in ante.</p>
+	<p>Curabitur nisl elit, suscipit sit amet ipsum sit amet, mattis gravida justo.</p>
+	<p>Ut et mattis erat.</p>
+	<p>Quisque consequat nisi in leo hendrerit ultrices.</p>
+	<p>Aenean porta libero ut neque volutpat eleifend.</p>
+	<p>Donec quam nibh, accumsan ac purus non, elementum interdum lacus.</p>
+	<p>Morbi aliquet, eros sit amet laoreet condimentum, diam odio porttitor tellus, a pellentesque mi risus in mi.</p>
+	<p>Sed vitae justo a ligula consequat bibendum rhoncus in quam.</p>
+	<p>Praesent lacus metus, vulputate iaculis ipsum quis, faucibus gravida ipsum.</p>
+	<p>Fusce viverra magna ac erat sollicitudin, at accumsan sem auctor.</p>
+	<p>Integer eleifend velit eget purus posuere, sed commodo nulla egestas.</p>
+	<p>Suspendisse potenti.</p>
+	<p>Nullam et elit nisl.</p>
+	<p>Donec vestibulum nec est eu lacinia.</p>
+	<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin at eros sed metus malesuada viverra.</p>
+	<p>Suspendisse porta sed dolor ac porttitor.</p>
+	<p>Quisque sit amet dolor in felis sollicitudin consequat.</p>
+	<p>In vel quam auctor, imperdiet risus nec, feugiat justo.</p>
+	<p>Aenean tincidunt orci et leo faucibus, sit amet tempor risus dignissim.</p>
+	<p>Vestibulum vitae nisi nulla.</p>
+	<p>Pellentesque nunc magna, dictum eu elit vitae, mollis tincidunt massa.</p>
+	<p>Proin eu mauris posuere, rutrum ante vitae, blandit ante.</p>
+	<p>In ac tincidunt dolor.</p>
+	<p>Duis vel massa vel lacus placerat molestie dapibus vel justo.</p>
+	<p>Suspendisse est elit, tincidunt vel imperdiet eget, volutpat id augue.</p>
+	<p>Aliquam egestas, dolor ac varius congue, nisi ipsum rutrum diam, vestibulum sollicitudin magna augue sit amet magna.</p>
+	<p>Quisque non tempor purus.</p>
+	<p>Donec a mi facilisis, adipiscing turpis egestas, aliquam erat.</p>
+	<p>Aenean eu porttitor lacus, non pretium libero.</p>
+	<p>Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+	<p>Quisque scelerisque odio sed risus lobortis condimentum.</p>
+	<p>Vivamus consequat placerat lorem, ac vulputate lacus pretium eget.</p>
+	<p>Donec ornare condimentum faucibus.</p>
+	<p>Curabitur dolor neque, scelerisque vitae fringilla eget, pellentesque nec libero.</p>
+	<p>Sed fermentum purus et justo feugiat, vehicula lobortis mi placerat.</p>
+	<p>Morbi bibendum posuere euismod.</p>
+	<p>Phasellus vestibulum lorem nec velit tempus, non feugiat lacus aliquam.</p>
+	<p>Nullam pretium erat at est venenatis semper id eget nulla.</p>
+	<p>Phasellus et nisl ultricies, sollicitudin eros vel, fermentum turpis.</p>
+	<p>Donec pellentesque, tellus vitae eleifend feugiat, ipsum nunc pulvinar est, quis fringilla augue lacus venenatis urna.</p>
+	<p>Praesent sed nunc eu tortor porttitor vestibulum.</p>
+	<p>Praesent mattis porta nisi, nec porttitor nibh aliquet nec.</p>
+	<p>Fusce ante nulla, tristique quis posuere non, ultricies et eros.</p>
+	<p>Sed rutrum dolor pretium lobortis facilisis.</p>
+	<p>Suspendisse potenti.</p>
+	<p>Quisque sed ultricies nunc, non lacinia metus.</p>
+	<p>Duis varius purus neque, sit amet fermentum mi blandit id.</p>
+	<p>Maecenas blandit sem ac ante dictum eleifend placerat eget dolor.</p>
+	<p>In vitae scelerisque enim.</p>
+	<p>Nullam vitae est lectus.</p>
+	<p>Etiam ac neque pharetra, pulvinar tellus a, dignissim nunc.</p>
+	<p>Suspendisse vehicula, tortor eu vestibulum scelerisque, sapien augue semper leo, vitae gravida velit enim at lorem.</p>
+	<p>Donec tincidunt adipiscing ipsum quis dapibus.</p>
+	<p>Ut pharetra nisl eros.</p>
+	<p>Fusce malesuada lobortis eros in gravida.</p>
+	<p>Nam ut nisi vitae eros commodo imperdiet vel vitae orci.</p>
+	<p>Pellentesque ultrices, erat eget bibendum eleifend, tortor erat ullamcorper sapien, quis porttitor turpis velit sed tellus.</p>
+	<p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+	<p>Vestibulum venenatis, enim eget consequat blandit, est nibh pharetra magna, ac posuere dolor turpis et magna.</p>
+	<p>Pellentesque sodales dui sed est convallis, id egestas felis cursus.</p>
+	<p>Cras nec libero facilisis, lobortis nulla in, lobortis neque.</p>
+	<p>Vestibulum fringilla nibh gravida dui aliquet, eget feugiat arcu eleifend.</p>
+	<p>Aliquam accumsan ante eu enim interdum malesuada.</p>
+	<p>Ut eu aliquet lorem.</p>
+	<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+	<p>Nullam eget nunc sed enim congue pharetra vitae malesuada ipsum.</p>
+	<p>Suspendisse potenti.</p>
+	<p>Sed quis neque sit amet metus pulvinar molestie quis condimentum magna.</p>
+	<p>Morbi id rutrum lorem.</p>
+	<p>Integer interdum, magna non sodales interdum, augue purus suscipit elit, in mollis sapien ante vel ligula.</p>
+	<p>Donec vitae mi ut ipsum semper auctor.</p>
+	<p>Duis vitae turpis non metus rhoncus congue.</p>
+	<p>Proin vel tincidunt nulla.</p>
+	<p>Curabitur sit amet molestie justo.</p>
+	<p>Mauris adipiscing nisi est, quis sodales purus suscipit vitae.</p>
+	<p>Nam a leo felis.</p>
+	<p>Sed lectus tortor, commodo quis nunc nec, dapibus rhoncus lacus.</p>
+	<p>Maecenas in lectus ornare, condimentum sapien quis, elementum nisi.</p>
+	<p>Nullam iaculis pretium luctus.</p>
+	<p>Sed pretium porta aliquam.</p>
+	<p>Sed consequat dolor quis fermentum vulputate.</p>
+	<p>Praesent luctus augue risus, vitae porta felis condimentum ut.</p>
+	<p>Phasellus at neque condimentum, adipiscing nisl nec, mollis lectus.</p>
+	<p>Morbi a augue condimentum, porta neque eu, semper erat.</p>
+	<p>Praesent id ante eu sem convallis fringilla at eget metus.</p>
+	<p>Nulla posuere mattis dui, quis ultricies sem porttitor vel.</p>
+	<p>Duis a massa at enim cursus dapibus.</p>
+	<p>Nullam tellus nulla, faucibus sed pretium et, blandit eu arcu.</p>
+	<p>Aenean viverra tortor sed dui tempus, vitae elementum lacus volutpat.</p>
+	<p>Aliquam imperdiet sem sed lacinia dapibus.</p>
+	<p>Vivamus nisi lacus, tincidunt iaculis feugiat luctus, mattis eu lacus.</p>
+	<p>Etiam varius ac augue sit amet dictum.</p>
+	<p>Suspendisse euismod turpis tortor.</p>
+	<p>Mauris viverra tristique lobortis.</p>	
+</article>
+
+<script>
+var btn = document.getElementsByTagName('button')[0],
+    a = document.getElementsByTagName('article')[0],
+    eventcount = 0,
+    p = document.querySelectorAll('article p');
+
+window.addEventListener('load', function(e){
+	var numgraphs = document.getElementById('numgraphs'), 
+	howmany = document.createTextNode(p.length);
+	numgraphs.replaceChild(howmany,numgraphs.firstChild);
+},false);
+	
+a.addEventListener('DOMNodeRemoved', function(e){
+	eventcount++;
+	var numevents = document.getElementById('numevents'),
+	    howmany = document.createTextNode(eventcount);
+	
+	numevents.replaceChild(howmany,numevents.firstChild);
+	btn.classList.add('hidden');
+}, true);
+
+btn.addEventListener('click', function(e){
+	a.innerHTML = '';
+},false);
+
+</script>
+
+</body>
+</html>
