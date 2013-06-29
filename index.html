@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width,user-scalable=yes">
 	<title>Getting to know mutation observers</title>
 	<link rel="stylesheet" href="s.css" media="screen">
-	<link rel="stylesheet" href="http://webinista.s3.amazonaws.com/outline.css" media="screen">
+	<link rel="stylesheet" href="outline.css" media="screen">
 </head>
 <body>
 	<article>
@@ -36,10 +36,11 @@
 	<li>can observe all changes to a node, or only observe specific kinds of changes.</li>
 </ul>
 
-<p>What's more, because they ARE NOT events, they don't come with the implementation overhead that events do. They're less likely to freeze the UI or cause a browser crash as a result.</p> 
+<p>What's more, because they <em>are not</em> events, they don't come with the implementation overhead of events. They're less likely to freeze the UI or cause a browser crash as a result.</p> 
 
-<p>Let's consider an example. In the code samples below, we're appending 2500 paragraphs to a document fragment, and then adding that fragment as a child of an article element.</p>
+<p>Let's consider an example. In the code below, we're appending 2500 paragraphs to a document fragment, and then adding that fragment as a child of an article element.</p>
 
+<figure id="DOMNodeInserted">
 <pre>var docFrag  = document.createDocumentFragment(),
     thismany = 2500,
     i=0,
@@ -59,100 +60,110 @@ while ( i < thismany) {
 
 a.appendChild( docFrag );
 </pre>
+<figcaption>Figure 1: Adding 2500 paragraph nodes to a document using a document fragment.</figcaption>
+</figure>
 
-<p>Even though we're adding 2500 paragraphs nodes, we've batched them into one DOM update by using a document fragment. Still, this bit of code generates 2500 DOMNodeInserted events, one for each paragraph. Our DOMNodeInserted event handler is invoked 2500 times.</p>
+<p>Even though we're adding 2500 paragraphs nodes, we've batched them into one DOM update by using a document fragment. Still, this bit of code generates 2500 <code>DOMNodeInserted</code> events, one for each paragraph. Our <a href="mutationobserver-mutationevent.html">DOMNodeInserted event handler</a> is invoked 2500 times.</p>
 
-<p>With a mutation observer, our callback is invoked once. One mutation observer can record multiple DOM operations.</p> 
+<p>With a mutation observer, on the other hand, our callback is <a href="mutationobserver-mutationobserver.html">invoked once</a>. One mutation observer can record multiple DOM operations.</p> 
 
 <h2> Okay, but can I use them now?</h2>
 
-<p>The bad news is that browser support is spotty. Opera {{14}}, and the latest versions of Chrome and Firefox support the MutationObserver interface. Safari does not yet support mutation observers, though it is available in the latest WebKit nightlies. Internet Explorer lacks support as well, though initial reports http://html5test.com/compare/browser/ie10/ie11.html indicate that it will be included in IE11.</p>
+<p>The bad news is that browser support is spotty. Opera 14, and the latest versions of Chrome and Firefox support the <code>MutationObserver</code> interface. Safari does not yet support mutation observers. But that should change soon since it is available in the latest WebKit nightlies. Internet Explorer lacks support as well, though <a href="http://html5test.com/compare/browser/ie10/ie11.html">initial reports</a> indicate that it will be included in version 11. Detect support with the code shown in <a href="#detectMutationObserverSupport">figure 2</a>.</p>
 
-<p>Detect support with the following code.
-
+<figure id="detectMutationObserverSupport">
 <pre>var canObserveMutation = 'MutationObserver' in window; // returns true or false</pre>
+<figcaption>Figure 2: Detecting mutation observer support.</figcaption>
+</figure>
 
 <h2> So how do I use 'MutationObserver' ? </h2>
 
-<p>The good news is that mutation observers are easy to use. First create an observer object using the MutationObserver constructor as shown in Figure XXX. The constructor requires a single parameter, a callback function.</p>
+<p>The good news is that mutation observers are easy to use. First create an observer object using the MutationObserver constructor as shown in <a href="#MutationObserver">figure 3</a>. The constructor requires a single parameter, a callback function.</p>
 
+<figure id="MutationObserver">
 <pre>var observer, callback;
 callback = function( recordqueue ){
     // do something to each record in the recordqueue array.
 }
 observer = new MutationObserver( callback );</pre>
+<figcaption>Figure 3: Creating a mutation observer.</figcaption>
+</figure>
 
-<p>Our callback function will receive an array of MutationRecord objects as an argument. Each MutationRecord object summarizes a change to the node tree. We'll discuss mutation records in more depth later.</p>
+<p>Our callback function will receive an array of <code>MutationRecord</code> objects as an argument. Each <code>MutationRecord</code> object summarizes a change to the node tree. We'll discuss <a href="#mutationrecords">mutation records</a> in more detail later.</p>
 
-<p>Next, you'll need to define a node to observe, and determine what kinds of DOM changes you'd like to keep an eye on. For this, we use the <code>observe</code> method. Its first parameter must be a node, and its second must be a <a href="http://dev.w3.org/2006/webapi/WebIDL/#dfn-dictionary">dictionary</a> of options (Figure XXX). In the example below, we'll watch an article element for changes to its children or attributes.</p>
+<p>Next, you'll need to define a node to observe, and determine what kinds of DOM changes you'd like to keep an eye on. For this, we use the <code>observe</code> method. Its first parameter must be a node, and its second must be a <a href="http://dev.w3.org/2006/webapi/WebIDL/#dfn-dictionary">dictionary</a> of options (<a href="usingobservefunction">figure 4</a>). In the example below, we'll watch an article element for changes to its children or attributes.</p>
 
+<figure id="usingobservefunction">
 <pre>var  options = {
-    'childList': true
+    'childList': true,
+    'attributes':true
 }, 
 article = document.querySelector( 'article' );
 
 observer.observe( article, options );</pre>
+<figcaption>Figure 4: Determining which node and mutation types to track</figcaption>
+</figure>
 
 <p>The options parameter may include the following properties and values.
 
 <dl>
-	<dt>childList</dt>
+	<dt><code>childList</code></dt>
 		<dd>true or false; observe mutations to the target node's children. </dd>
  
-	<dt>attributes</dt>
+	<dt><code>attributes</code></dt>
 		<dd>true or false; observe changes to the attributes of a target node.</dd>
 
-	<dt>characterData</dt>
+	<dt><code>characterData</code></dt>
 		<dd>true or false; Observe changes to the data or text content of the target node. </dd>
 
-	<dt>subtree</dt>
+	<dt><code>subtree</code></dt>
 		<dd>true or false; observe mutations to all descendants of the target, including child nodes and "grandchild nodes" (or the child nodes of child nodes).</dd>
 
-	<dt>attributeOldValue</dt>
+	<dt><code>attributeOldValue</code></dt>
 		<dd>true or false; if the attributes property is true, and you'd like to capture the value of the attribute before the mutation is recorded.</dd>
 
-	<dt>characterDataOldValue</dt>
+	<dt><code>characterDataOldValue</code></dt>
 		<dd>true or false; if the characterData property is true, and you'd like to capture the value of the data before the mutation is recorded.</dd>
 
-	<dt>attributeFilter</dt>
-	<dd>a list of attributes to observe, enclosed in square brackets ([]);</dd>
+	<dt><code>attributeFilter</code></dt>
+	<dd>a list of attributes to observe, enclosed in square brackets (example: <code>['class','src']</code>);</dd>
 </dl>
 
 
 <p>Either the <code>childList</code>, <code>attributes</code>, or <code>characterData</code> property must be included, and must be set to <code>true</code>.</p> 
 
-<p>To stop observing mutations, use the <code>disconnect()</code> method (<code>observer.disconnect()</code>). Using this method prevents further invocation of the callback function. The <code>takeRecord</code> method (<code>observer.takeRecord()</code>) clears the record queue. To resume watching mutations, just re-invoke the observe method.</p> 
+<p>To stop observing mutations, use the <code>disconnect()</code> method (<code>observer.disconnect()</code>). Using this method prevents further invocation of the callback function. The <code>takeRecord</code> method (<code>observer.takeRecord()</code>) clears the record queue. To resume watching mutations, just re-invoke the <code>observe</code> method.</p> 
 
 <p>I mentioned above that the mutation callback receives an array of mutation records as an argument. Let's take a look at what a mutation record is.</p>
 
-<h2> Mutation records</h2>
+<h2 id="mutationrecords">Mutation records</h2>
 
 
 
 <p>A mutation record is an object that reports a single change to the document tree. Mutation record objects are defined by the <code>MutationRecord</code> interface, and contain the following items.</p> 
 
 <dl>
-	<dt>type</dt>
+	<dt><code>type</code></dt>
 		<dd>the type of of mutation observed, either attribute, characterData or childList</dd>
 
-	<dt>target</dt>
+	<dt><code>target</code></dt>
 		<dd>the node affected by the mutation. </dd>
 
-	<dt>addedNodes</dt>
+	<dt><code>addedNodes</code></dt>
 		<dd>a NodeList of elements, attributes, and text nodes added to the tree.</dd>
 
-	<dt>removedNodes</dt>
+	<dt><code>removedNodes</code></dt>
 		<dd>a NodeList of elements, attributes, and text nodes removed from the tree.</dd>
 
-	<dt>previousSibling</dt>
+	<dt><code>previousSibling</code></dt>
 		<dd>returns the previous sibling node, or null if there is no previous sibling.</dd>
 
-	<dt>nextSibling</dt>
+	<dt><code>nextSibling</code></dt>
 		<dd>returns the next sibling node, or null if there is no next sibling.</dd>
 
-	<dt>attributeName</dt>
+	<dt><code>attributeName</code></dt>
 		<dd>The name of the attribute or attributes changed. If attributeFilter option was set, it will only return the filtered node. {{NEED TO TRY THIS WITH MULTIPLE ATTRIBUTES. DOES IT TREAT EACH ATTRIBUTE AS A SEPARATE MUTATION?}}</dd>
-	<dt>oldValue</dt>
+	<dt><code>oldValue</code></dt>
 	<dd>the pre-mutation value in the case of attribute or characterData mutations, and null for childList mutations.</dd>
 </dl>
 
