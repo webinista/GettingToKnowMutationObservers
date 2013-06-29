@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta charset="utf-8" />
+	<title>Observing the addition of child nodes</title>
+	<link rel="stylesheet" href="mutationobserver.css">
+</head>
+<body>
+<header>
+	<h1>Observing the addition of child nodes</h1>
+	<nav><a href="">Return to article</a></nav>
+</header>
+
+<article>
+	<p>In this example, clicking the <b>Add a node</b> button adds another paragraph element node to the document tree. Open the developer console to see what each mutation record reports.</p>
+	<p><button>Add a node</button></p>
+</article>
+
+<div class="demo"></div>
+
+<script>
+(function(d){
+	var btn = d.querySelector('button'),
+	demo = d.querySelector('.demo'),
+	clickhandler = function(){
+		var p, sentence = 'Lorem ipsum dolar sit amet consecutum.';
+	
+		if( p !== undefined){
+			p = p.cloneNode(true);
+		} else {
+			p = d.createElement('p');
+			p.textContent = sentence;
+		}
+		demo.appendChild(p);
+	}
+	btn.addEventListener('click',clickhandler,false);	
+
+	var mocallback = function(mutationrecords){		
+		mutationrecords.map( function(mr){
+			var mrtype = Object.prototype.toString.call(mr)+"\n\n";
+			for( var o in mr ){
+				mrtype += o +': '+mr[o]+"\n";
+			}
+			console.log(mrtype);
+		});
+		
+	}, 
+	mo = new MutationObserver(mocallback),
+	demo = document.querySelector('.demo');	
+	mo.observe(d.body,{'childList':true,'subtree':true});
+})(document);
+</script>
+
+</body>
+</html>
