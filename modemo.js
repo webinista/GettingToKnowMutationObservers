@@ -10,7 +10,7 @@
 		
 		while( i < n ){
 			p = (p !== undefined) ? p = p.cloneNode(false) : p = d.createElement('p');
-			p.textContent = sentence;
+			if(!p.textContent){ p.textContent = sentence; }
 			docfrag.appendChild(p);
 			i++;
 		}		

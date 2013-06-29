@@ -24,7 +24,7 @@
 
 <p>Sounds messy, right? 
 
-<p>Indeed, mutation events are messy enough to have been deprecated in the DOM, Level 3 specification. But if mutation events are deprecated, we need something to replace them. That's where mutation observers come in.</p>
+<p>Indeed, mutation events are messy enough to have been deprecated in the <a href="http://www.w3.org/TR/DOM-Level-3-Events/#events-mutationevents">DOM, Level 3 specification</a>. But if mutation events are deprecated, we need something to replace them. That's where mutation observers come in.</p>
 
 <h2> How Mutation Observers are different</h2>
 
@@ -169,11 +169,37 @@ observer.observe( article, options );</pre>
 
 <p>Now that we've covered the syntax of mutation observers and mutation records, let's look at some examples.</p>
 
-<h2> Observing the addition of child nodes</h2>
+<h2>Observing the addition of child nodes</h2>
+
+<p>Observing the addition of child nodes is straightforward. We'll create a new object and pass a callback. We'll also observe our document's body, and all changes to its children. <a href="#watchchildnodes">Figure 5</a> shows how.</p>
+
+<figure id="watchchildnodes">
+<pre>var callback = function(allmutations){
+    
+    // Since allmutations is an array, we can use array functions.
+    allmutations.map( functions(mr){
+    	var mt = 'Mutation type: '+mr.type;  // log the type of mutation
+    	mt += 'Mutation target: '+mr.target; // log the node affected.
+    	console.log( mt );
+    });
+    
+},
+mo = new MutationObserver(callback),
+options = {
+    'childList':true, // required, and observes additions of children.
+    'subtree':true    // observes additions *to* children
+}
+mo.observe(document.body, options);</pre>
+	<figcaption>Figure 5: How to observe the addition of child nodes to a document.</figcaption>
+</figure> 
+
+<p>Notice that we've included the <code>subtree</code> option, and set it to <code>true</code>. Doing so captures when <a href="mutationobserver-addchildren.html">children are appended</a> to the document body (example: <code>document.body.appendChild(el)</code>), <em>and</em> when they are appended to a child of the body (<code>document.getElementById('my_element').appendChild(el)</code>). If, instead, <code>subtree</code> was <code>false</code> or missing, the observer would only keep track of elements appended to the body.</p>
+
 
 
 <h2> Observing changes to attributes</h2>
 <h3>Filtering which attributes are observed</h3>
+<h2> Observing changes to document fragments</h2>
 
 {{ With events, even using a docFrag will cause multiple mutationevents to fire, even though only one DOM operation has occured. 
 With mutation observers, you only have one DOM operation, and only one operation is observed. }}
@@ -192,14 +218,11 @@ With mutation observers, you only have one DOM operation, and only one operation
 	<li>http://www.w3.org/2008/webapps/wiki/MutationReplacement</li>
 
 	<li>https://github.com/component/component from the Component.io framework http://component.io/</li>
-
-	<li>https://gist.github.com/stucox/5231211 <&#8212; Detecting MutationObserver</li>
-
-	<li>· What happens when an off-screen node is modified?</li>
-	<li>· Can you observe changes to a document fragment?</li>
-	<li>· If the DOM isn't in the tree, then what?</li>
-	<li>· Can you reuse the same observer to watch multiple nodes? Do you need to clear one before watching another?</li>
-	<li>· What happens if a mutation changes multiple attributes, such as class and data-*</li>
+	<li>What happens when an off-screen node is modified?</li>
+	<li>Can you observe changes to a document fragment?</li>
+	<li>If the DOM isn't in the tree, then what?</li>
+	<li>Can you reuse the same observer to watch multiple nodes? Do you need to clear one before watching another?</li>
+	<li>What happens if a mutation changes multiple attributes, such as class and data-*</li>
 </ul>
 
 
