@@ -27,10 +27,11 @@ h1{margin: 0 .5rem}
 article{
 	margin:3rem;
 	padding-top: 4rem;
+	width: 35rem;
+	margin: 1rem auto;
 }
 
 article p{
-	width: 35rem;
 	margin: 1rem auto;
 }
 
@@ -46,12 +47,12 @@ button{
 	border: 1px solid #999;
 	font: inherit;
 	font-weight: bold;
-	border: 1px solid #bbb;
+	border: 1px solid #ccc;
 	border-radius: 5px;
 	line-height: .8;
 	color: #333;
 	padding: .5rem;
-	text-shadow: -1px -1px 0 #eee;
+	text-shadow: 1px 1px 0 #eee;
 }
 
 button:hover, button:active{
@@ -63,6 +64,11 @@ button:hover, button:active{
 	background-image: -ms-linear-gradient(top, rgb(204, 204, 204), rgb(238, 238, 238));
 	background-image: linear-gradient(top, rgb(204, 204, 204), rgb(238, 238, 238));
 	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#cccccc', EndColorStr='#eeeeee');
+	text-shadow: -1px -1px 0 #eee;
+}
+
+button:active, button:focus{
+	outline-color: rgba(51,51,153,.5);
 }
 
 .hidden{
@@ -75,3 +81,15 @@ nav{
 	right:0;
 	padding: 2rem;
 }
+.numevents{font-size: 1.5rem;}
+code{font-size:1.1rem;}
+
+.demo{
+	background:#eee;
+	border:1px solid #ccc;
+	width: 45rem;
+	margin:0 auto 3rem;
+}
+.demo p{
+	margin: 1rem;
+}	
