@@ -12,44 +12,26 @@
 </header>
 
 <article>
-	<p>In this example, we are creating 2500 paragraphs, and appending them to a document fragment. Then we'll append that document fragment to a <code>div</code> element. 2500 mutation events will be fired as a result. That means our event handler for the <code>DOMNodeInserted</code> event will be invoked 2500 times.</p>
-	<p><b class="numevents">0</b> mutation events have been fired.</p>
+	<p>In this example, we are creating 2500 paragraphs, and appending them to a document fragment. Then we'll append that document fragment to a <code>div</code> element. Each element added fires a new <code>DOMNodeInserted</code> event, which causes our event handler to be invoked.</p>
+
+	<p>Our <code>DOMNodeInserted</code> event handler was invoked <b class="numevents">0</b> times.</p>
 	<p><button>Run demo</button></p>
 </article>
 
 <div class="demo"></div>
 
+<script src="modemo.js"></script>
 <script>
-(function(w,d){
-	var thismany = 2500,
-	eventcount = 0,
-	btn = d.querySelector('button'),
-	demo = d.querySelector('.demo'),
-	clickhandler = function(){
-		var i = 0, 
-		docfrag = d.createDocumentFragment(), 
-		n = thismany, p,
-		sentence = 'Lorem ipsum dolar sit amet consecutum.';
-		
-		while( i < n ){
-			p = (p !== undefined) ? p = p.cloneNode(false) : p = d.createElement('p');
-			p.textContent = sentence;
-			docfrag.appendChild(p);
-			i++;
-		}
-		
-		demo.appendChild(docfrag);
-	}, 
+(function(d){
+	var demo = d.querySelector('.demo');
+	eventcount = 0;
 	onnodeinsert = function(){
 		eventcount++;
 		var numevents = d.querySelector('.numevents');
 		numevents.textContent = eventcount;	
 	}
-		
 	demo.addEventListener('DOMNodeInserted',onnodeinsert,false);
-	btn.addEventListener('click',clickhandler,false);
-	
-})(window, document)
+})(document);
 </script>
 
 </body>

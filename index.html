@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,user-scalable=yes">
+	<title>Getting to know mutation observers</title>
+	<link rel="stylesheet" href="s.css" media="screen">
+	<link rel="stylesheet" href="http://webinista.s3.amazonaws.com/outline.css" media="screen">
+</head>
+<body>
+	<article>
+	<h1>Getting to know mutation observers</h1>
+<p>As you develop more complex JavaScript-heavy applications or roll-your-own framework, you may find that you need to know when the DOM node tree has changed. You may want to know when a view has been loaded or unloaded. Or perhaps you are profiling an application, and want to measure how many nodes are affected by your DOM operation.</p>
+
+<p>We used to do this with mutation events. Introduced by the DOM, Level 2 specification, the MutationEvent interface defined several events &#8212; such as DOMNodeInserted and DOMAttrModified &#8212; that would be fired by the browser when a node was added, removed, or deleted. Mutation events, however, suffer from two major issues.</p>
+
+<h2>The problem with MutationEvents</h2>
+
+<p>Though an excellent idea in theory, in practice, mutation events had two major hurdles.</p>
+
+<p>MutationEvents are synchronous. Events are fired when called, and may prevent other events in the queue from being fired.  Add or remove enough nodes, and the application could lag or hang.</p>
+
+<p>Because they were events, they were implemented as events. I know that reads like circular logic, but stick with me. Events must propagate through the DOM via capturing and sometimes bubbling. Capturing and bubbling can, in turn, trigger other event listeners that modify the DOM. And those can, in turn, cause more MutationEvents to fire, clogging the JavaScript thread &#8212; or worse, crashing the browser.</p>
+
+<p>Sounds messy, right? 
+
+<p>Indeed, mutation events are messy enough to have been deprecated in the DOM, Level 3 specification. But if mutation events are deprecated, we need something to replace them. That's where mutation observers come in.</p>
+
+<h2> How Mutation Observers are different</h2>
+
+<p>Mutation observers are defined by the <a href="https://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html#mutation-observers">DOM, Level 4 specification</a>, and differ from mutation events one key way: they are asynchronous. They do not fire every time an event occurs. Instead they:</p>
+
+<ul>
+	<li>wait until other scripts or tasks complete; </li>
+	<li>report changes in a batch as an array of mutation records, rather than one-by-one; and</li>
+	<li>can observe all changes to a node, or only observe specific kinds of changes.</li>
+</ul>
+
+<p>What's more, because they ARE NOT events, they don't come with the implementation overhead that events do. They're less likely to freeze the UI or cause a browser crash as a result.</p> 
+
+<p>Let's consider an example. In the code samples below, we're appending 2500 paragraphs to a document fragment, and then adding that fragment as a child of an article element.</p>
+
+<pre>var docFrag  = document.createDocumentFragment(),
+    thismany = 2500,
+    i=0,
+    a = document.getElementsByTagName('article')[0],
+    p;
+
+while ( i < thismany) {
+    /*
+     Creates a new p element if one doesn't exists.
+     Clones the existing element if it does
+    */
+
+    p = (p</h2>= undefined) ? document.createElement('p') : p.cloneNode(false);
+    docFrag.appendChild(p);
+    i++;
+}
+
+a.appendChild( docFrag );
+</pre>
+
+<p>Even though we're adding 2500 paragraphs nodes, we've batched them into one DOM update by using a document fragment. Still, this bit of code generates 2500 DOMNodeInserted events, one for each paragraph. Our DOMNodeInserted event handler is invoked 2500 times.</p>
+
+<p>With a mutation observer, our callback is invoked once. One mutation observer can record multiple DOM operations.</p> 
+
+<h2> Okay, but can I use them now?</h2>
+
+<p>The bad news is that browser support is spotty. Opera {{14}}, and the latest versions of Chrome and Firefox support the MutationObserver interface. Safari does not yet support mutation observers, though it is available in the latest WebKit nightlies. Internet Explorer lacks support as well, though initial reports http://html5test.com/compare/browser/ie10/ie11.html indicate that it will be included in IE11.</p>
+
+<p>Detect support with the following code.
+
+<pre>var canObserveMutation = 'MutationObserver' in window; // returns true or false</pre>
+
+<h2> So how do I use 'MutationObserver' ? </h2>
+
+<p>The good news is that mutation observers are easy to use. First create an observer object using the MutationObserver constructor as shown in Figure XXX. The constructor requires a single parameter, a callback function.</p>
+
+<pre>var observer, callback;
+callback = function( recordqueue ){
+    // do something to each record in the recordqueue array.
+}
+observer = new MutationObserver( callback );</pre>
+
+<p>Our callback function will receive an array of MutationRecord objects as an argument. Each MutationRecord object summarizes a change to the node tree. We'll discuss mutation records in more depth later.</p>
+
+<p>Next, you'll need to define a node to observe, and determine what kinds of DOM changes you'd like to keep an eye on. For this, we use the <code>observe</code> method. Its first parameter must be a node, and its second must be a <a href="http://dev.w3.org/2006/webapi/WebIDL/#dfn-dictionary">dictionary</a> of options (Figure XXX). In the example below, we'll watch an article element for changes to its children or attributes.</p>
+
+<pre>var  options = {
+    'childList': true
+}, 
+article = document.querySelector( 'article' );
+
+observer.observe( article, options );</pre>
+
+<p>The options parameter may include the following properties and values.
+
+<dl>
+	<dt>childList</dt>
+		<dd>true or false; observe mutations to the target node's children. </dd>
+ 
+	<dt>attributes</dt>
+		<dd>true or false; observe changes to the attributes of a target node.</dd>
+
+	<dt>characterData</dt>
+		<dd>true or false; Observe changes to the data or text content of the target node. </dd>
+
+	<dt>subtree</dt>
+		<dd>true or false; observe mutations to all descendants of the target, including child nodes and "grandchild nodes" (or the child nodes of child nodes).</dd>
+
+	<dt>attributeOldValue</dt>
+		<dd>true or false; if the attributes property is true, and you'd like to capture the value of the attribute before the mutation is recorded.</dd>
+
+	<dt>characterDataOldValue</dt>
+		<dd>true or false; if the characterData property is true, and you'd like to capture the value of the data before the mutation is recorded.</dd>
+
+	<dt>attributeFilter</dt>
+	<dd>a list of attributes to observe, enclosed in square brackets ([]);</dd>
+</dl>
+
+
+<p>Either the <code>childList</code>, <code>attributes</code>, or <code>characterData</code> property must be included, and must be set to <code>true</code>.</p> 
+
+<p>To stop observing mutations, use the <code>disconnect()</code> method (<code>observer.disconnect()</code>). Using this method prevents further invocation of the callback function. The <code>takeRecord</code> method (<code>observer.takeRecord()</code>) clears the record queue. To resume watching mutations, just re-invoke the observe method.</p> 
+
+<p>I mentioned above that the mutation callback receives an array of mutation records as an argument. Let's take a look at what a mutation record is.</p>
+
+<h2> Mutation records</h2>
+
+
+
+<p>A mutation record is an object that reports a single change to the document tree. Mutation record objects are defined by the <code>MutationRecord</code> interface, and contain the following items.</p> 
+
+<dl>
+	<dt>type</dt>
+		<dd>the type of of mutation observed, either attribute, characterData or childList</dd>
+
+	<dt>target</dt>
+		<dd>the node affected by the mutation. </dd>
+
+	<dt>addedNodes</dt>
+		<dd>a NodeList of elements, attributes, and text nodes added to the tree.</dd>
+
+	<dt>removedNodes</dt>
+		<dd>a NodeList of elements, attributes, and text nodes removed from the tree.</dd>
+
+	<dt>previousSibling</dt>
+		<dd>returns the previous sibling node, or null if there is no previous sibling.</dd>
+
+	<dt>nextSibling</dt>
+		<dd>returns the next sibling node, or null if there is no next sibling.</dd>
+
+	<dt>attributeName</dt>
+		<dd>The name of the attribute or attributes changed. If attributeFilter option was set, it will only return the filtered node. {{NEED TO TRY THIS WITH MULTIPLE ATTRIBUTES. DOES IT TREAT EACH ATTRIBUTE AS A SEPARATE MUTATION?}}</dd>
+	<dt>oldValue</dt>
+	<dd>the pre-mutation value in the case of attribute or characterData mutations, and null for childList mutations.</dd>
+</dl>
+
+<p>Now that we've covered the syntax of mutation observers and mutation records, let's look at some examples.</p>
+
+<h2> Observing the addition of child nodes</h2>
+
+
+<h2> Observing changes to attributes</h2>
+<h3>Filtering which attributes are observed</h3>
+
+{{ With events, even using a docFrag will cause multiple mutationevents to fire, even though only one DOM operation has occured. 
+With mutation observers, you only have one DOM operation, and only one operation is observed. }}
+
+
+
+<ul>
+	<li>Resources</li>
+	<li>http://code.google.com/p/mutation-summary/wiki/DOMMutationObservers</li>
+	<li>http://code.google.com/p/mutation-summary/ <&#8212; a library built on observers</li>
+	<li>http://hacks.mozilla.org/2012/05/dom-mutationobserver-reacting-to-dom-changes-without-killing-browser-performance/</li>
+	<li>http://dom.spec.whatwg.org/#mutation-observers</li>
+	<li>http://www.w3.org/TR/DOM-Level-3-Events/#events-mutationevents</li>
+	<li>https://groups.google.com/forum/#!topic/mozilla.dev.platform/UH2VqFQRTDA</li>
+	<li>http://lists.w3.org/Archives/Public/public-webapps/2011JulSep/0779.html</li>
+	<li>http://www.w3.org/2008/webapps/wiki/MutationReplacement</li>
+
+	<li>https://github.com/component/component from the Component.io framework http://component.io/</li>
+
+	<li>https://gist.github.com/stucox/5231211 <&#8212; Detecting MutationObserver</li>
+
+	<li>· What happens when an off-screen node is modified?</li>
+	<li>· Can you observe changes to a document fragment?</li>
+	<li>· If the DOM isn't in the tree, then what?</li>
+	<li>· Can you reuse the same observer to watch multiple nodes? Do you need to clear one before watching another?</li>
+	<li>· What happens if a mutation changes multiple attributes, such as class and data-*</li>
+</ul>
+
+
+
+</article>
+</body>
+</html>

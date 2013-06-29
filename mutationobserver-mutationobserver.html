@@ -12,7 +12,7 @@
 </header>
 
 <article>
-	<p>In this example, we are creating 2500 paragraphs, and appending them to a document fragment. Then we'll append that document fragment to a <code>div</code> element. Rather than use a <a href="mutationobserver-mutationevent.html">mutation event</a>, we'll use a mutation observer.</p>
+	<p>In this example, we are creating 2500 paragraphs, and appending them to a document fragment. Then we'll append that document fragment to a <code>div</code> element. Rather than listen for <a href="mutationobserver-mutationevent.html">mutation events</a>, we'll use a mutation observer.</p>
 	<p>Our mutation observer callback function was invoked <b class="numevents">0</b> time(s). </p>
 	<p><button>Run demo</button></p>
 </article>
@@ -28,11 +28,8 @@
 		document.querySelector('.numevents').textContent = eventcount;
 	}, 
 	mo = new MutationObserver(mocallback),
-	demo = document.querySelector('.demo');
-	
+	demo = document.querySelector('.demo');	
 	mo.observe(demo,{'childList':true});
-	
-
 })(document);
 </script>
 
