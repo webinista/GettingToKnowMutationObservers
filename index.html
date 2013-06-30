@@ -195,11 +195,11 @@ mo.observe(document.body, options);</pre>
 
 <p>Notice that we've included the <code>subtree</code> option, and set it to <code>true</code>. Doing so captures when <a href="mutationobserver-addchildren.html">children are appended</a> to the document body (example: <code>document.body.appendChild(el)</code>), <em>and</em> when they are appended to a child of the body (<code>document.getElementById('my_element').appendChild(el)</code>). If, instead, <code>subtree</code> was <code>false</code> or missing, the observer would only keep track of elements appended to the body.</p>
 
-
+<p>It's also possible to observe mutations to <a href="mutationobserver-docfrag.html">document fragments</a>. Just pass the fragment as the first parameter to the <code>observe</code> method.</p>
 
 <h2> Observing changes to attributes</h2>
 <h3>Filtering which attributes are observed</h3>
-<h2> Observing changes to document fragments</h2>
+
 
 {{ With events, even using a docFrag will cause multiple mutationevents to fire, even though only one DOM operation has occured. 
 With mutation observers, you only have one DOM operation, and only one operation is observed. }}
