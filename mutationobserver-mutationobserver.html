@@ -17,7 +17,7 @@
 	<p><button>Run demo</button></p>
 </article>
 
-<div class="demo"></div>
+<div id="demo"></div>
 
 <script src="modemo.js"></script>
 <script>
@@ -25,10 +25,10 @@
 	eventcount = 0;
 	var mocallback = function(mr){
 		eventcount++;
-		document.querySelector('.numevents').textContent = eventcount;
+		d.querySelector('.numevents').textContent = eventcount;
 	}, 
 	mo = new MutationObserver(mocallback),
-	demo = document.querySelector('.demo');	
+	demo = d.querySelector('.demo');	
 	mo.observe(demo,{'childList':true});
 })(document);
 </script>

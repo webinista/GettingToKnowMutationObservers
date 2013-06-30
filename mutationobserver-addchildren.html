@@ -16,12 +16,12 @@
 	<p><button>Add a node</button></p>
 </article>
 
-<div class="demo"></div>
+<div id="demo"></div>
 
 <script>
 (function(d){
 	var btn = d.querySelector('button'),
-	demo = d.querySelector('.demo'),
+	demo = d.getElementById('demo'),
 	clickhandler = function(){
 		var p, sentence = 'Lorem ipsum dolar sit amet consecutum.';
 	
@@ -46,7 +46,7 @@
 		
 	}, 
 	mo = new MutationObserver(mocallback),
-	demo = document.querySelector('.demo');	
+	demo = d.getElementById('demo');	
 	mo.observe(d.body,{'childList':true,'subtree':true});
 })(document);
 </script>

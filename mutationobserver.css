@@ -44,7 +44,7 @@ button{
 	background-image: -ms-linear-gradient(top, rgb(238, 238, 238), rgb(204, 204, 204));
 	background-image: linear-gradient(top, rgb(238, 238, 238), rgb(204, 204, 204));
 	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#eeeeee', EndColorStr='#cccccc');
-	border: 1px solid #999;
+	border: 1px outset #999;
 	font: inherit;
 	font-weight: bold;
 	border: 1px solid #ccc;
@@ -65,8 +65,9 @@ button:hover, button:active{
 	background-image: linear-gradient(top, rgb(204, 204, 204), rgb(238, 238, 238));
 	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#cccccc', EndColorStr='#eeeeee');
 	text-shadow: -1px -1px 0 #eee;
+	border: 1px inset #ccc;
 }
-label,button{cursor: pointer};
+label,button{cursor: pointer}
 button:active, button:focus{
 	outline-color: rgba(51,51,153,.5);
 }
@@ -84,12 +85,20 @@ nav{
 .numevents{font-size: 1.5rem;}
 code{font-size:1.1rem;}
 
-.demo{
+#demo{
 	background:#eee;
 	border:1px solid #ccc;
 	width: 45rem;
 	margin:0 auto 3rem;
 }
-.demo p{
+#demo p{
 	margin: 1rem;
 }	
+
+.modded p{
+	font-weight: bold;
+	color: #c09;
+}
+#values{
+	font-family:monospace;
+}

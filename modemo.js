@@ -1,7 +1,7 @@
 (function(d){
 	var thismany = 2500,
 	btn = d.querySelector('button'),
-	demo = d.querySelector('.demo'),
+	demo = d.getElementById('demo'),
 	clickhandler = function(){
 		var i = 0, 
 		docfrag = d.createDocumentFragment(), 

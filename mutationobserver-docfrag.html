@@ -22,13 +22,13 @@
 	</p>
 </article>
 
-<div class="demo"></div>
+<div id="demo"></div>
 
 <script>
 (function(d){
 	var thismany = 1000,
 	btn = d.querySelectorAll('button'),
-	demo = d.querySelector('.demo'),
+	demo = d.getElementById('demo'),
 	docfrag = d.createDocumentFragment()
 	clickhandler = function(){
 		var i = 0, 
@@ -50,11 +50,10 @@
 	},false);
 	
 	var mocallback = function(mr){
-		document.querySelector('.numevents').textContent = mr.length;
+		d.querySelector('.numevents').textContent = mr.length;
 		mo.takeRecords();
 	}, 
-	mo = new MutationObserver(mocallback),
-	demo = document.querySelector('.demo');	
+	mo = new MutationObserver(mocallback);	
 	mo.observe(docfrag,{'childList':true,'subtree':true});
 })(document);
 </script>

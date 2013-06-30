@@ -10,7 +10,7 @@
 <body>
 	<article>
 	<h1>Getting to know mutation observers</h1>
-<p>As you develop more complex JavaScript-heavy applications or roll-your-own framework, you may find that you need to know when the DOM node tree has changed. You may want to know when a view has been loaded or unloaded. Or perhaps you are profiling an application, and want to measure how many nodes are affected by your DOM operation.</p>
+<p>As you develop more complex JavaScript-heavy applications or roll-your-own framework, you may find that you need to know when the DOM node tree has changed. You may want to know when a view has been loaded or unloaded. Or perhaps you are profiling an application, and want to measure how many nodes are affected by a DOM operation.</p>
 
 <p>We used to do this with mutation events. Introduced by the DOM, Level 2 specification, the MutationEvent interface defined several events &#8212; such as DOMNodeInserted and DOMAttrModified &#8212; that would be fired by the browser when a node was added, removed, or deleted. Mutation events, however, suffer from two major issues.</p>
 
@@ -169,40 +169,60 @@ observer.observe( article, options );</pre>
 
 <p>Now that we've covered the syntax of mutation observers and mutation records, let's look at some examples.</p>
 
-<h2>Observing the addition of child nodes</h2>
+<h2>Observing the addition or removal of child nodes</h2>
 
-<p>Observing the addition of child nodes is straightforward. We'll create a new object and pass a callback. We'll also observe our document's body, and all changes to its children. <a href="#watchchildnodes">Figure 5</a> shows how.</p>
+<p>Observing the addition or removal of child nodes is pretty straightforward. We'll create a new object and pass a callback. We'll also observe our document's body, and all changes to its children. <a href="#watchchildnodes">Figure 5</a> shows how.</p>
 
 <figure id="watchchildnodes">
 <pre>var callback = function(allmutations){
     
     // Since allmutations is an array, we can use array functions.
     allmutations.map( functions(mr){
-    	var mt = 'Mutation type: '+mr.type;  // log the type of mutation
-    	mt += 'Mutation target: '+mr.target; // log the node affected.
+    	var mt = 'Mutation type: ' + mr.type;  // log the type of mutation
+    	mt += 'Mutation target: ' + mr.target; // log the node affected.
     	console.log( mt );
     });
     
 },
 mo = new MutationObserver(callback),
 options = {
-    'childList':true, // required, and observes additions of children.
-    'subtree':true    // observes additions *to* children
+    'childList': true, // required, and observes additions or deletion of child nodes.
+    'subtree': true    // observes the addition or deletion of "grandchild" nodes.
 }
 mo.observe(document.body, options);</pre>
-	<figcaption>Figure 5: How to observe the addition of child nodes to a document.</figcaption>
+	<figcaption>Figure 5: How to observe the addition or removal of child nodes to a document.</figcaption>
 </figure> 
 
 <p>Notice that we've included the <code>subtree</code> option, and set it to <code>true</code>. Doing so captures when <a href="mutationobserver-addchildren.html">children are appended</a> to the document body (example: <code>document.body.appendChild(el)</code>), <em>and</em> when they are appended to a child of the body (<code>document.getElementById('my_element').appendChild(el)</code>). If, instead, <code>subtree</code> was <code>false</code> or missing, the observer would only keep track of elements appended to the body.</p>
 
 <p>It's also possible to observe mutations to <a href="mutationobserver-docfrag.html">document fragments</a>. Just pass the fragment as the first parameter to the <code>observe</code> method.</p>
 
-<h2> Observing changes to attributes</h2>
+<h2>Observing changes to attributes</h2>
+
+<p>Observing changes to attributes works much the same way. The main difference is that you must add <code>'attributes':true</code> to the options dictionary. If you want to capture the previous attribute value, set the <code>attributeOldValue</code> option to <code>true</code>.</p>
+
+<figure id="watchchildnodes">
+<pre>var callback = function(allmutations){
+    // Since allmutations is an array, we can use array functions.
+    allmutations.map( functions(mr){
+    	var attr = 'Previous attribute value: ' + mr.oldValue;  // log the type of mutation
+    	console.log(attr);
+    });
+},
+element = document.getElementById('my_el'),
+mo = new MutationObserver(callback),
+options = {
+    'attributes': true,        // required
+    'attributeOldValue': true  // captures the previous attribute value. 
+}
+mo.observe(document.body, options);</pre>
+<figcaption>Figure 6: How to observe the changes attribute values.</figcaption>
+</figure> 
+
+
+
 <h3>Filtering which attributes are observed</h3>
 
-
-{{ With events, even using a docFrag will cause multiple mutationevents to fire, even though only one DOM operation has occured. 
-With mutation observers, you only have one DOM operation, and only one operation is observed. }}
 
 
 

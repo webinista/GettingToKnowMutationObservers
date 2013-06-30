@@ -18,12 +18,12 @@
 	<p><button>Run demo</button></p>
 </article>
 
-<div class="demo"></div>
+<div id="demo"></div>
 
 <script src="modemo.js"></script>
 <script>
 (function(d){
-	var demo = d.querySelector('.demo');
+	var demo = d.getElementById('demo');
 	eventcount = 0;
 	onnodeinsert = function(){
 		eventcount++;
