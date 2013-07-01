@@ -226,42 +226,23 @@ mo.observe(element, options);</pre>
 
 <h3>Filtering which attributes are observed</h3>
 
-<p>We can limit the which attributes we'd like to observe by adding the <code>attributeFilter</code> property to our options (<a href="filteringattributes">figure 7</a>). The value of <code>attributeFilter</code> must be a list of attributes to track. 
+<p>We can limit the which attributes we'd like to observe by adding the <code>attributeFilter</code> property to our options (<a href="filteringattributes">figure 7</a>). The value of <code>attributeFilter</code> must be a list of attributes to track.</p> 
 
 <figure id="watchchildnodes">
 <pre>var options = {
     'attributes': true,         
     'attributeOldValue': true,  
-    'attributeFilter':['style'] // only captures changes to the style attribute.
+    'attributeFilter':['class'] // only captures changes to the class attribute.
 }
 
 mo.observe(element, options);</pre>
 <figcaption>Figure 7: Filtering which attributes we observe.</figcaption>
 </figure> 
 
+<p>Setting that property means that a mutation record wil be generated <em>only</em> for changes to the value of the class attribute <a href="mutationobserver-attributes-filtered.html">view a demo</a>.</p>
 
-
-
-<ul>
-	<li>Resources</li>
-	<li>http://code.google.com/p/mutation-summary/wiki/DOMMutationObservers</li>
-	<li>http://code.google.com/p/mutation-summary/ <&#8212; a library built on observers</li>
-	<li>http://hacks.mozilla.org/2012/05/dom-mutationobserver-reacting-to-dom-changes-without-killing-browser-performance/</li>
-	<li>http://dom.spec.whatwg.org/#mutation-observers</li>
-	<li>http://www.w3.org/TR/DOM-Level-3-Events/#events-mutationevents</li>
-	<li>https://groups.google.com/forum/#!topic/mozilla.dev.platform/UH2VqFQRTDA</li>
-	<li>http://lists.w3.org/Archives/Public/public-webapps/2011JulSep/0779.html</li>
-	<li>http://www.w3.org/2008/webapps/wiki/MutationReplacement</li>
-
-	<li>https://github.com/component/component from the Component.io framework http://component.io/</li>
-	<li>What happens when an off-screen node is modified?</li>
-	<li>Can you observe changes to a document fragment?</li>
-	<li>If the DOM isn't in the tree, then what?</li>
-	<li>Can you reuse the same observer to watch multiple nodes? Do you need to clear one before watching another?</li>
-	<li>What happens if a mutation changes multiple attributes, such as class and data-*</li>
-</ul>
-
-
+<h2>Conclusion</h2>
+<p></p>
 
 </article>
 </body>

@@ -97,7 +97,7 @@ code{font-size:1.1rem;}
 }	
 
 .resize{
-	resize: both;
+	resize: horizontal;
 	overflow: hidden;
 }
 
