@@ -91,9 +91,15 @@ code{font-size:1.1rem;}
 	width: 45rem;
 	margin:0 auto 3rem;
 }
+
 #demo p{
 	margin: 1rem;
 }	
+
+.resize{
+	resize: both;
+	overflow: hidden;
+}
 
 .modded p{
 	font-weight: bold;

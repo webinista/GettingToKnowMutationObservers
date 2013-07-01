@@ -199,13 +199,13 @@ mo.observe(document.body, options);</pre>
 
 <h2>Observing changes to attributes</h2>
 
-<p>Observing changes to attributes works much the same way. The main difference is that you must add <code>'attributes':true</code> to the options dictionary. If you want to capture the previous attribute value, set the <code>attributeOldValue</code> option to <code>true</code>.</p>
+<p>Observing changes to attributes works much the same way. The main difference is that you must add <code>'attributes':true</code> to the options dictionary. If you want to capture the previous attribute value, set the <code>attributeOldValue</code> option to <code>true</code> (<a href="mutationobserver-attributes.html">view a demo</a>).</p>
 
 <figure id="watchchildnodes">
 <pre>var callback = function(allmutations){
     // Since allmutations is an array, we can use array functions.
     allmutations.map( functions(mr){
-    	var attr = 'Previous attribute value: ' + mr.oldValue;  // log the type of mutation
+    	var attr = 'Previous attribute value: ' + mr.oldValue;  // log the previous value of the attribute.
     	console.log(attr);
     });
 },
@@ -215,13 +215,29 @@ options = {
     'attributes': true,        // required
     'attributeOldValue': true  // captures the previous attribute value. 
 }
-mo.observe(document.body, options);</pre>
+
+mo.observe(element, options);</pre>
 <figcaption>Figure 6: How to observe the changes attribute values.</figcaption>
 </figure> 
 
 
+<p>The example above will capture all changes to any attribute of our target element, including deletions. As you can see <a href="mutationobserver-attributes.html">in the demo</a>, each time the value of an attribute changes, a new mutation record gets added to the queue. But what if we only wanted to observe changes to <em>particular</em> attributes?</p>
+
 
 <h3>Filtering which attributes are observed</h3>
+
+<p>We can limit the which attributes we'd like to observe by adding the <code>attributeFilter</code> property to our options (<a href="filteringattributes">figure 7</a>). The value of <code>attributeFilter</code> must be a list of attributes to track. 
+
+<figure id="watchchildnodes">
+<pre>var options = {
+    'attributes': true,         
+    'attributeOldValue': true,  
+    'attributeFilter':['style'] // only captures changes to the style attribute.
+}
+
+mo.observe(element, options);</pre>
+<figcaption>Figure 7: Filtering which attributes we observe.</figcaption>
+</figure> 
 
 
 
