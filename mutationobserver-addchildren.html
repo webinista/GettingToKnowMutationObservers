@@ -8,7 +8,7 @@
 <body>
 <header>
 	<h1>Observing the addition of child nodes</h1>
-	<nav><a href="">Return to article</a></nav>
+	<nav><a href="http://dev.opera.com/articles/view/mutation-observers-tutorial/">Return to article</a></nav>
 </header>
 
 <article>
@@ -37,11 +37,12 @@
 
 	var mocallback = function(mutationrecords){		
 		mutationrecords.map( function(mr){
-			var mrtype = Object.prototype.toString.call(mr)+"\n\n";
+			var mrtype = [];
+			mrtype[0] = Object.prototype.toString.call(mr)+"\n";
 			for( var o in mr ){
-				mrtype += o +': '+mr[o]+"\n";
+				mrtype.push( o +': '+mr[o] );
 			}
-			console.log(mrtype);
+			console.log( mrtype.join('\n') );
 		});
 		
 	}, 
