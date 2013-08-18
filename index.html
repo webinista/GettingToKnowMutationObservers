@@ -53,7 +53,7 @@ while ( i < thismany) {
      Clones the existing element if it does
     */
 
-    p = (p</h2>= undefined) ? document.createElement('p') : p.cloneNode(false);
+    p = (p !== undefined) ? document.createElement('p') : p.cloneNode(false);
     docFrag.appendChild(p);
     i++;
 }
