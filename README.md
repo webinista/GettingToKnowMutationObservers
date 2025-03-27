@@ -1,6 +1,6 @@
-# Getting To Know Mutation Observers
+# Getting To Know `MutationObserver`
 
-My [article on `MutationObserver`](https://tiffanybbrown.com/2013/09/mutation-observer/), and associated demos.
+My [article on the `MutationObserver` API](https://tiffanybbrown.com/2013/09/mutation-observer/), and associated demos.
 
 ## View the demos
 * [`MutationEvent` fires too many times](mutationobserver-mutationevent.html)
