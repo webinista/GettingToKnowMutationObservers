@@ -1,8 +1,6 @@
 # Getting To Know Mutation Observers
 
-The unedited version of my [article on `MutationObserver`](http://dev.opera.com/articles/view/mutation-observers-tutorial/), and associated files.
-
-## [Read the unedited version](index.html)
+My [article on `MutationObserver`](https://tiffanybbrown.com/2013/09/mutation-observer/), and associated demos.
 
 ## View the demos
 * [`MutationEvent` fires too many times](mutationobserver-mutationevent.html)
